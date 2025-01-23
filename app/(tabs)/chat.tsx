@@ -39,7 +39,7 @@ export default function Chat(){
         return new Promise(async (resolve, reject) => {
             const userChat = await getUserById(item.userOne === user.uid ? item.userTwo : item.userOne);
             resolve(
-                <ChatItemList chat={item} userChat={userChat as UserModel} />
+                <ChatItemList chat={item} userChat={userChat as UserModel} currentUser={user} />
             );
         });
         

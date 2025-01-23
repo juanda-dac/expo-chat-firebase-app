@@ -4,6 +4,6 @@ import { UserModel } from "../UserModel";
 
 export interface ChatItemProps {
     chat: ChatModel;
-    lastMessage?: MessageModel;
     userChat: UserModel;
+    currentUser: UserModel;
 }
