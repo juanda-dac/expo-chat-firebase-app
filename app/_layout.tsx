@@ -1,39 +1,47 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { AuthProvider } from "@/context/AuthContext";
+import { Stack } from "expo-router";
+import { Montserrat_400Regular, Montserrat_700Bold, Montserrat_400Regular_Italic, Montserrat_700Bold_Italic } from "@expo-google-fonts/montserrat"
+import { useFonts } from "expo-font";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import React, { useEffect } from "react";
+import { useColorScheme } from "react-native";
+import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import * as SplashScreen from "expo-splash-screen";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+export default function MainLayout() {
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+    const [loaded, error] = useFonts({
+        SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+        Montserrat: Montserrat_400Regular,
+        MontserratBold: Montserrat_700Bold,
+        MontserratItalic: Montserrat_400Regular_Italic,
+        MontserratBoldItalic: Montserrat_700Bold_Italic,
+        ...FontAwesome.font
+    })
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+    const colorScheme = useColorScheme();
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    SplashScreen.preventAutoHideAsync();
 
-  if (!loaded) {
-    return null;
-  }
+    useEffect(() => {
+        if(loaded){
+            console.log("Fonts loaded");
+            SplashScreen.hideAsync();
+        }
+    }, [loaded]);
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    useEffect(() => {
+        console.log("Color scheme changed to", colorScheme);    
+    }, [colorScheme]);
+
+    
+    
+
+    return (
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+            <AuthProvider>
+                <Stack screenOptions={{ headerShown:false }} />
+            </AuthProvider>
+        </ThemeProvider>
+    );
 }
