@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, useColorScheme, View } from "react-
 import { EventEmitter, useEvent, useEventListener } from "expo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
+import { MonMediumText } from "../styled/StyledText";
 
 export default function CustomHeaderChat(props:any) {
 
@@ -26,13 +27,13 @@ export default function CustomHeaderChat(props:any) {
     }
 
     return (
-        <View style={[styles.container, { backgroundColor: Colors[theme].background, borderBottomColor: Colors[theme].tint }]}>
+        <View style={[styles.container, { backgroundColor: Colors[theme].backgroundDk, borderBottomColor: Colors[theme].border }]}>
             <View>
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props.navigation.goBack()}>
                     <Ionicons name="arrow-back" size={24} color={Colors[theme].text} />
                 </TouchableOpacity>
             </View>
-            <Text style={[styles.title, { color: Colors[theme].text }]}>{props.options.headerTitle}</Text>
+            <MonMediumText style={[styles.title, { color: Colors[theme].text }]}>{props.options.headerTitle}</MonMediumText>
             <View>
                 <TouchableOpacity activeOpacity={0.8} onPress={handleDeleteChat}>
                     <Ionicons name="trash" size={24} color={Colors[theme].text} />
@@ -54,6 +55,5 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        fontWeight: "bold",
     },
 });

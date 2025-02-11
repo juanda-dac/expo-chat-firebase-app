@@ -1,11 +1,16 @@
 
 import { BottomTabHeaderProps } from "@react-navigation/bottom-tabs";
-import { Text, View, StyleSheet, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Dimensions, useColorScheme } from "react-native";
+import { MonBoldText } from "./styled/StyledText";
+import Colors from "@/constants/Colors";
 
 export default function CustomTabHeader(props: BottomTabHeaderProps) {
+
+    const theme = useColorScheme() || "light";
+
     return (
-        <View style={styles.containerHeader}>
-            <Text style={styles.title}>{props.options.title}</Text>
+        <View style={[styles.containerHeader, { backgroundColor: Colors[theme].backgroundDk }]}>
+            <MonBoldText style={[styles.title, { color: Colors[theme].primary }]}>{props.options.title}</MonBoldText>
         </View>
     );
 }
@@ -15,9 +20,11 @@ const styles=StyleSheet.create({
     containerHeader:{
         width: Dimensions.get('window').width,
         padding: 20,
-        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-        backgroundColor: '#fff',
     },
-    title:{},
+    title:{
+        fontSize: 20,
+        color: '#000',
+        textAlign: 'center',
+    },
     icon:{}
 })

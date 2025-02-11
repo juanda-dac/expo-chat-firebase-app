@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlatList, ListRenderItem, Text, View } from "react-native";
+import { FlatList, ListRenderItem, Text, useColorScheme, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ChatItemList from "@/components/chats/ChatItemList";
 import { getLastMessageByChatId, getUserChats } from "@/core/services/messages";
@@ -10,6 +10,8 @@ import { app } from "@/constants/firebase";
 import { MessageModel } from "@/core/models/MessageModel";
 import { ChatItemProps } from "@/core/models/props/ChatItemProps";
 import { UserModel } from "@/core/models/UserModel";
+import HeaderChatList from "@/components/chats/HeaderChatList";
+import Colors from "@/constants/Colors";
 
 interface ChatInternModel{
     chat: ChatModel,
@@ -20,7 +22,8 @@ export default function Chat(){
 
     const [chats, setChats] = useState<Array<ChatModel>>([]);
     const [user, setUser] = useState<UserModel>({} as UserModel); // User owner
-    const firestore = getFirestore(app);
+    const theme = useColorScheme() || "light";
+
 
     const fetchChats = async () => {
         const userFetch = await fetchUserFromAsyncStorage() as UserModel;
@@ -46,7 +49,11 @@ export default function Chat(){
     }
 
     return (
-        <View>    
+        <View style={{
+            backgroundColor: Colors[theme].backgroundLg,
+            flex: 1,
+        }}>
+            <HeaderChatList /> 
             <FlatList 
                 data={chats}
                 // @ts-ignore

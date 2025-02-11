@@ -6,6 +6,11 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { app } from "@/constants/firebase";
 
+/**
+ * Un nuevo cambio
+ */
+
+
 export default function StartPage() {
 
     const { auth } = useAppAuth();

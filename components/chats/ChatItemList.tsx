@@ -1,7 +1,7 @@
 import Colors from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Href, router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, useColorScheme, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { ChatItemProps } from "@/core/models/props/ChatItemProps";
 import { useEffect, useState } from "react";
 import { getChatRoomId } from "@/core/lib/chatRoom";
@@ -9,6 +9,7 @@ import { collection, doc, getFirestore, onSnapshot, orderBy, query } from "fireb
 import { app } from "@/constants/firebase";
 import { MessageModel } from "@/core/models/MessageModel";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MonBoldText, MonMediumText, MonText } from "../styled/StyledText";
 
 export default function ChatItemList({ chat, userChat, currentUser }:ChatItemProps){
 
@@ -55,14 +56,15 @@ export default function ChatItemList({ chat, userChat, currentUser }:ChatItemPro
     }
 
     return (
-        <TouchableOpacity activeOpacity={0.9} style={styles.container} onPress={handleRedirect}>
-            <TouchableOpacity activeOpacity={0.7} style={{borderRadius:50, overflow:"hidden"}}>
-                <Ionicons name="person-circle" size={80} color={Colors[theme].disabled} />
+        <TouchableOpacity activeOpacity={0.9} style={[styles.container, { borderColor: Colors[theme].border }]} onPress={handleRedirect}>
+            <TouchableOpacity activeOpacity={0.7} style={{borderRadius:10, overflow:"hidden", width:50, height:50}} onPress={handleRedirect}>
+                {/* <Ionicons name="person-circle" size={80} color={Colors[theme].disabled} /> */}
+                <Image source={{ uri:"https://plus.unsplash.com/premium_photo-1689977968861-9c91dbb16049?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }} width={50} height={50} />
             </TouchableOpacity>
             <View style={{flex:1}}>
-                <Text style={[styles.username, { color: Colors[theme].text }]}>{userChat.name}</Text>
+                <MonMediumText style={[styles.username, { color: Colors[theme].text }]}>{userChat.name}</MonMediumText>
                 <View className="last-message" style={{flexDirection:"row", alignItems:"center", gap:3}}>
-                    <Text style={[styles.message, { color:Colors[theme].disabled }]}>{renderLastMessage()}</Text>
+                    <MonText style={[styles.message, { color:Colors[theme].disabled }]}>{renderLastMessage()}</MonText>
                 </View>
             </View>
         </TouchableOpacity>
@@ -72,18 +74,16 @@ export default function ChatItemList({ chat, userChat, currentUser }:ChatItemPro
 const styles = StyleSheet.create({
     container:{
         paddingHorizontal:10,
-        paddingVertical:5,
-        borderBottomWidth:1,
-        borderBottomColor:"lightgray",
+        paddingVertical:10,
+        borderBottomWidth:0.5,
         flexDirection:"row",
         alignItems:"center",
         gap:10
     },
     username:{
-        fontSize:20,
-        fontWeight:"bold",
+        fontSize:18,
     },
     message:{
-        fontSize:16,
+        fontSize:13,
     }
 })

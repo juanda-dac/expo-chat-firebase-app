@@ -16,8 +16,7 @@ export default function TabLayout() {
                 name="chat"
                 options={{
                     title: "SimplyChat",
-                    headerBackButtonDisplayMode: "minimal",
-                    // header: (props)=> <CustomTabHeader {...props}/>,
+                    header: (props)=> <CustomTabHeader {...props}/>,
                     tabBarIcon: ({ color, size, focused }) => (
                         <Ionicons
                             name={focused ? "chatbubble-ellipses" : "chatbubble-ellipses-outline"}

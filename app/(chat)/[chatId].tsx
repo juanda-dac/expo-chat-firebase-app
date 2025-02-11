@@ -171,14 +171,14 @@ export default function ChatUserId() {
                     style={{
                         maxWidth: "80%",
                         backgroundColor: isUserMessage
-                            ? ChatColors[theme].tint
+                            ? Colors[theme].primary
                             : ChatColors[theme].light,
                         padding: 10,
                         borderRadius: 5,
                         margin: 5,
                     }}
                 >
-                    <Text style={{ color: ChatColors[theme].text }}>
+                    <Text style={{ color: isUserMessage ? ChatColors.white : ChatColors[theme].text }}>
                         {item.text}
                     </Text>
                     <View
@@ -192,7 +192,7 @@ export default function ChatUserId() {
                         <Text
                             style={[
                                 styles.timestamp,
-                                { color: ChatColors[theme].text },
+                                { color: isUserMessage ? ChatColors.white : ChatColors[theme].text },
                             ]}
                         >
                             {dateTimestamp
@@ -214,7 +214,7 @@ export default function ChatUserId() {
         <KeyboardAvoidingView
             style={[
                 styles.container,
-                { backgroundColor: ChatColors[theme].background },
+                { backgroundColor: Colors[theme].backgroundDk },
             ]}
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             keyboardVerticalOffset={0}
@@ -237,8 +237,9 @@ export default function ChatUserId() {
                         style={[
                             styles.input,
                             {
-                                backgroundColor: ChatColors[theme].light,
+                                backgroundColor: Colors[theme].bgPrimary,
                                 color: ChatColors[theme].text,
+                                borderColor: Colors[theme].primary,
                             },
                         ]}
                     />
@@ -249,7 +250,7 @@ export default function ChatUserId() {
                         onPress={handleSendMessage}
                         style={[
                             styles.buttonOptions,
-                            { backgroundColor: ChatColors[theme].tint },
+                            { backgroundColor: Colors[theme].primary },
                         ]}
                     >
                         <Ionicons
@@ -281,8 +282,7 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 30,
+        borderRadius: 10,
         paddingHorizontal: 40,
     },
     buttonOptions: {
